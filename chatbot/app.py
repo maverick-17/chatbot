@@ -5,14 +5,17 @@
 
 from flask import Flask, render_template, request, jsonify
 
+from chatbot.chatbot_main import Chatbot
+
 app = Flask(__name__, static_url_path='/static')
+chatbot = Chatbot()
 
 
 @app.route('/message', methods=['POST'])
 def reply():
-    request_msg = request.form['msg']
-    print(request_msg)
-    answer = 'hello'
+    question = request.form['msg']
+    print(question)
+    answer = chatbot.answer(question)
 
     return jsonify({'text': answer})
 
